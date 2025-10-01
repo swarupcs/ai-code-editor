@@ -21,3 +21,20 @@ npx prisma db push
 ```
 
 
+# Next Auth
+
+```
+npm install next-auth@beta
+```
+
+```
+npx auth secret
+```
+```
+npm i @auth/prisma-adapter
+```
+
+```
+npm install next-themes
+```
+

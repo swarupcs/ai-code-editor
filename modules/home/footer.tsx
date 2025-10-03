@@ -30,7 +30,7 @@ export function Footer() {
 
         {/* Copyright Notice */}
         <p className='text-sm text-zinc-500 dark:text-zinc-400'>
-          &copy; {new Date().getFullYear()} AICodeEditor. All rights reserved.
+          &copy; {new Date().getFullYear()} AI-Code-Editor All rights reserved.
         </p>
       </div>
     </footer>

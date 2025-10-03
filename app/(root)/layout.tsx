@@ -1,13 +1,12 @@
 import { cn } from '@/lib/utils';
 import { Footer } from '@/modules/home/footer';
 import { Header } from '@/modules/home/header';
-
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: 'VibeCode - Editor ',
-    default: 'Code Editor For VibeCoders - VibeCode',
+    template: 'AI-Code - Editor ',
+    default: 'Code Editor with AI Assistance',
   },
 };
 export default function HomeLayout({

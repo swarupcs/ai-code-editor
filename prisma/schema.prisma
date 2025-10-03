@@ -32,6 +32,8 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   StarMark  StarMark[]
+
+  chatMessages ChatMessage[]
 }
 
 model Account {
@@ -71,9 +73,9 @@ model Playground {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  Starmark StarMark[]
-  userId   String
-  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Starmark      StarMark[]
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   templateFiles TemplateFile[]
 }
 
@@ -89,12 +91,23 @@ model StarMark {
   @@unique([userId, playgroundId])
 }
 
-
 model TemplateFile {
-  id  String @id @default(cuid()) @map("_id")
-  content Json
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime @updatedAt
-  playgroundId String @unique
+  id           String     @id @default(cuid()) @map("_id")
+  content      Json
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  playgroundId String     @unique
   playground   Playground @relation(fields: [playgroundId], references: [id], onDelete: Cascade)
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid()) @map("_id")
+  userId    String
+  role      String // "user" or "assitant"
+  content   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

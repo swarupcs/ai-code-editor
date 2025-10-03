@@ -130,6 +130,7 @@ export const duplicateProjectById = async (id: string) => {
     const originalPlayground = await db.playground.findUnique({
       where: { id },
       // todo: add tempalte files
+       include: { user: true, Starmark: true }, // ✅ include relations
     });
     if (!originalPlayground) {
       throw new Error("Original playground not found");
@@ -143,6 +144,7 @@ export const duplicateProjectById = async (id: string) => {
         userId: originalPlayground.userId,
 
         // todo: add template files
+        include: { user: true, Starmark: true }, // ✅ return full Project
       },
     });
 

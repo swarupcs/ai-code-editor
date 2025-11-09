@@ -15,18 +15,18 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
      * Handle user creation and account linking after a successful sign-in
      */
     async signIn({ user, account, profile }) {
-      if (!user || !account) return false;
+      if (!user || !account || !user.email) return false;
 
       // Check if the user already exists
       const existingUser = await db.user.findUnique({
-        where: { email: user.email! },
+        where: { email: user.email },
       });
 
       // If user does not exist, create a new one
       if (!existingUser) {
         const newUser = await db.user.create({
           data: {
-            email: user.email!,
+            email: user.email,
             name: user.name,
             image: user.image,
            

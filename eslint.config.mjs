@@ -10,7 +10,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  // 1️⃣ Ignore patterns must be defined in a standalone config object
   {
     ignores: [
       'node_modules/**',
@@ -18,18 +18,19 @@ const eslintConfig = [
       'out/**',
       'build/**',
       'next-env.d.ts',
+      'vibecode-starters/**', // ✅ This now works properly
     ],
+  },
+
+  // 2️⃣ Extend your normal configs AFTER the ignore block
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+
+  // 3️⃣ Add your custom rule overrides
+  {
     rules: {
-      // 🔹 Downgrade to warnings instead of errors
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
-
-      // (optional) if you want to still allow `@ts-ignore` temporarily:
-      // "@typescript-eslint/ban-ts-comment": [
-      //   "warn",
-      //   { "ts-ignore": false }
-      // ],
     },
   },
 ];

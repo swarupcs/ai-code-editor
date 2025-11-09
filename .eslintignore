@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+.next
+drizzle
+src/db/migrations
+src/generated
+vibecode-starters

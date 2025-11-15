@@ -62,8 +62,9 @@ interface ProjectTableProps {
     data: { title: string; description: string }
   ) => Promise<void>;
   onDeleteProject?: (id: string) => Promise<void>;
-  onDuplicateProject: (id: string) => Promise<void>; // ✅ simpler
+  onDuplicateProject: (id: string) => Promise<void>;
 }
+
 
 interface EditProjectData {
   title: string;

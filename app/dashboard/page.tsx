@@ -8,6 +8,7 @@ import AddNewButton from '@/modules/dashboard/components/add-new';
 import AddRepo from '@/modules/dashboard/components/add-repo';
 import EmptyState from '@/modules/dashboard/components/empty-state';
 import ProjectTable from '@/modules/dashboard/components/project-table';
+import ProjectTableClient from '@/modules/dashboard/components/ProjectTableClient';
 import React from 'react';
 
 const Page = async () => {
@@ -33,14 +34,7 @@ const Page = async () => {
         {playgrounds && playgrounds.length === 0 ? (
           <EmptyState />
         ) : (
-          <ProjectTable
-            projects={normalizedPlaygrounds}
-            onDeleteProject={deleteProjectById}
-            onUpdateProject={editProjectById}
-            onDuplicateProject={async (id) => {
-              await duplicateProjectById(id);
-            }}
-          />
+          <ProjectTableClient projects={normalizedPlaygrounds} />
         )}
       </div>
     </div>

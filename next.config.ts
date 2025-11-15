@@ -1,20 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  images:{
-    remotePatterns:[
+  images: {
+    remotePatterns: [
       {
-        protocol:"https",
-        hostname:"*",
-        port:'',
-        pathname:"/**"
-      }
-    ]
+        protocol: 'https',
+        hostname: '*',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
+
   async headers() {
     return [
       {
-        // Apply to all routes
         source: '/:path*',
         headers: [
           {
@@ -29,7 +29,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  reactStrictMode:false
+
+  reactStrictMode: false,
+
+  // ⭐ ADD THIS PART ⭐
+  webpack: (config) => {
+    // Completely ignore everything inside vibecode-starters
+    config.module.rules.push({
+      test: /\.(js|jsx|ts|tsx)$/,
+      include: /vibecode-starters/,
+      use: 'ignore-loader',
+    });
+
+    return config;
+  },
 };
 
 export default nextConfig;

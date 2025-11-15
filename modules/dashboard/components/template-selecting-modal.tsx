@@ -408,8 +408,10 @@ const TemplateSelectionModal = ({
                 Configure Your Project
               </DialogTitle>
               <DialogDescription>
-                {templates.find((t) => t.id === selectedTemplate)?.name} project
-                configuration
+                {selectedTemplate
+                  ? templates.find((t) => t.id === selectedTemplate)?.name
+                  : 'Template'}{' '}
+                project configuration
               </DialogDescription>
             </DialogHeader>
 

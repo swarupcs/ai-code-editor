@@ -1,4 +1,3 @@
-import { isLastDayOfMonth } from 'date-fns';
 import { useState, useCallback } from 'react';
 
 interface AISuggestionsState {
@@ -94,44 +93,42 @@ export const useAISuggestions = (): UseAISuggestionsReturn => {
     });
   }, []);
 
-  const acceptSuggestion = useCallback(() => {
-    (editor: any, monaco: any) => {
-      setState((currentState) => {
-        if (
-          !currentState.suggestion ||
-          !currentState.position ||
-          !editor ||
-          !monaco
-        ) {
-          return currentState;
-        }
+  const acceptSuggestion = useCallback((editor: any, monaco: any) => {
+    setState((currentState) => {
+      if (
+        !currentState.suggestion ||
+        !currentState.position ||
+        !editor ||
+        !monaco
+      ) {
+        return currentState;
+      }
 
-        const { line, column } = currentState.position;
-        const sanitizedSuggestion = currentState.suggestion.replace(
-          /^\d+:\s*/gm,
-          ''
-        );
+      const { line, column } = currentState.position;
+      const sanitizedSuggestion = currentState.suggestion.replace(
+        /^\d+:\s*/gm,
+        ''
+      );
 
-        editor.executeEdits('', [
-          {
-            range: new monaco.Range(line, column, line, column),
-            text: sanitizedSuggestion,
-            forceMoveMarkers: true,
-          },
-        ]);
+      editor.executeEdits('', [
+        {
+          range: new monaco.Range(line, column, line, column),
+          text: sanitizedSuggestion,
+          forceMoveMarkers: true,
+        },
+      ]);
 
-        if (editor && currentState.decoration.length > 0) {
-          editor.deltaDecorations(currentState.decoration, []);
-        }
+      if (editor && currentState.decoration.length > 0) {
+        editor.deltaDecorations(currentState.decoration, []);
+      }
 
-        return {
-          ...currentState,
-          suggestion: null,
-          position: null,
-          decoration: [],
-        };
-      });
-    };
+      return {
+        ...currentState,
+        suggestion: null,
+        position: null,
+        decoration: [],
+      };
+    });
   }, []);
 
   const rejectSuggestion = useCallback((editor: any) => {

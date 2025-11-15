@@ -39,7 +39,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu';
-import 'katex/dist/katex.min.css';
 import Image from 'next/image';
 import Stream from 'stream';
 
@@ -504,8 +503,12 @@ export const AIChatSidePanel: React.FC<AIChatSidePanelProps> = ({
                           remarkPlugins={[remarkGfm, remarkMath]}
                           rehypePlugins={[rehypeKatex]}
                           components={{
-                            code: ({ children, className, inline }) => {
-                              if (inline) {
+                            code: ({ children, className, ...props }: any) => {
+                              // Check if it's an inline code element by checking if it has no className or specific inline markers
+                              const isInline =
+                                !className || !/language-/.test(className);
+
+                              if (isInline) {
                                 return (
                                   <code className='bg-zinc-800 px-1 py-0.5 rounded text-sm'>
                                     {children}

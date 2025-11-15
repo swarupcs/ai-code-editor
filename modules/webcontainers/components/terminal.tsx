@@ -14,6 +14,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Copy, Trash2, Download } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+import { SearchAddon } from 'xterm-addon-search';
 
 interface TerminalProps {
   webcontainerUrl?: string;
